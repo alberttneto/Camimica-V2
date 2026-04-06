@@ -324,7 +324,7 @@ Este projeto está sob licença MIT. Sinta-se à vontade para usar, modificar e 
 
 Se tiver dúvidas ou precisar de ajuda:
 
-- 📧 **Email**: contato@camimica.com
+- 📧 **Email**: bf__@hotmail.com
 - 🐛 **Issues**: Abra uma issue no GitHub
 - 📖 **Documentação**: Consulte este README detalhado
 
