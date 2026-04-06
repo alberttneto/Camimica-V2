@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Configurações do Jogo - CAMIMICA Jogo de Mímica">
+    <meta name="keywords" content="jogo, mimica, configurações, times, pontuação">
+    <meta name="author" content="CAMIMICA">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Configurações do Jogo - CAMIMICA">
+    <meta property="og:description" content="Configure as regras e opções do jogo">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <title>Configurações do Jogo - CAMIMICA</title>
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="background-animation">
+        <div class="floating-element floating-element--1"></div>
+        <div class="floating-element floating-element--2"></div>
+        <div class="floating-element floating-element--3"></div>
+        <div class="floating-element floating-element--4"></div>
+        <div class="floating-element floating-element--5"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="config-header">
+        <button class="back-button" onclick="goBack()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 12L5 12M5 12L12 5M5 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Voltar
+        </button>
+        
+        <div class="header-content">
+            <div class="logo-small">
+                <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="url(#gradient1)"/>
+                    <path d="M30 40C30 40 40 30 50 40C60 30 70 40 70 40" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="35" cy="35" r="3" fill="white"/>
+                    <circle cx="65" cy="35" r="3" fill="white"/>
+                    <path d="M35 60C35 60 42 65 50 60C58 65 65 60 65 60" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs>
+                        <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#FF6B6B"/>
+                            <stop offset="100%" style="stop-color:#4ECDC4"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <h1 class="page-title">Configurações do Jogo</h1>
+            <p class="page-subtitle">Defina as regras e opções para começar a jogar</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="config-main">
+        <form id="gameConfigForm" class="config-form">
+            <!-- Game Rules Section -->
+            <section class="config-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 5C20 5 10 15 10 25C10 30 15 35 20 35C25 35 30 30 30 25C30 15 20 5 20 5Z" stroke="var(--white)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="20" cy="25" r="3" fill="var(--white)"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="section-title">Regras do Jogo</h2>
+                        <p class="section-description">Configure tempo e pontuação</p>
+                    </div>
+                </div>
+                
+                <div class="config-options">
+                    <div class="config-option">
+                        <label class="config-label" for="roundTime">
+                            <span class="label-text">Tempo por Rodada</span>
+                            <span class="label-value" id="roundTimeValue">60 segundos</span>
+                        </label>
+                        <div class="time-selector">
+                            <button type="button" class="time-button" data-time="30" onclick="setRoundTime(30)">30s</button>
+                            <button type="button" class="time-button" data-time="60" onclick="setRoundTime(60)">60s</button>
+                            <button type="button" class="time-button" data-time="90" onclick="setRoundTime(90)">90s</button>
+                            <button type="button" class="time-button" data-time="120" onclick="setRoundTime(120)">120s</button>
+                        </div>
+                    </div>
+                    
+                    <div class="config-option">
+                        <label class="config-label" for="pointsPerHit">
+                            <span class="label-text">Pontos por Acerto</span>
+                            <span class="label-value" id="pointsValue">1 ponto</span>
+                        </label>
+                        <div class="points-config">
+                            <div class="points-type-selector">
+                                <label class="radio-option">
+                                    <input type="radio" name="pointsType" value="fixed" checked onchange="togglePointsType()">
+                                    <span class="radio-label">Pontos Fixos</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="pointsType" value="random" onchange="togglePointsType()">
+                                    <span class="radio-label">Pontos Aleatórios</span>
+                                </label>
+                            </div>
+                            <div class="points-input-group" id="fixedPointsGroup">
+                                <div class="number-selector">
+                                    <button type="button" class="selector-button selector-minus" onclick="decrementPoints()">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                        </svg>
+                                    </button>
+                                    <div class="selector-display">
+                                        <span class="number-value" id="pointsPerHit">1</span>
+                                        <span class="number-label">pontos</span>
+                                    </div>
+                                    <button type="button" class="selector-button selector-plus" onclick="incrementPoints()">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M4 10H16M10 4V16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="points-input-group hidden" id="randomPointsGroup">
+                                <div class="range-selector">
+                                    <div class="range-display">
+                                        <span class="range-text">Entre</span>
+                                        <div class="range-inputs">
+                                            <input type="number" id="minRandomPoints" min="1" max="10" value="1" class="range-input" onchange="updateRandomPointsRange()">
+                                            <span class="range-separator">e</span>
+                                            <input type="number" id="maxRandomPoints" min="2" max="20" value="5" class="range-input" onchange="updateRandomPointsRange()">
+                                        </div>
+                                        <span class="range-text">pontos</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="config-option">
+                        <label class="config-label" for="skipsPerRound">
+                            <span class="label-text">Pulos por Rodada</span>
+                            <span class="label-value" id="skipsValue">2 pulos</span>
+                        </label>
+                        <div class="number-selector">
+                            <button type="button" class="selector-button selector-minus" onclick="decrementSkips()">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </button>
+                            <div class="selector-display">
+                                <span class="number-value" id="skipsPerRound">2</span>
+                                <span class="number-label">pulos</span>
+                            </div>
+                            <button type="button" class="selector-button selector-plus" onclick="incrementSkips()">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 10H16M10 4V16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="config-option">
+                        <label class="config-label" for="totalRounds">
+                            <span class="label-text">Quantidade de Rodadas</span>
+                            <span class="label-value" id="totalRoundsValue">3 rodadas</span>
+                        </label>
+                        <div class="number-selector">
+                            <button type="button" class="selector-button selector-minus" onclick="decrementTotalRounds()">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </button>
+                            <div class="selector-display">
+                                <span class="number-value" id="totalRounds">3</span>
+                                <span class="number-label">rodadas</span>
+                            </div>
+                            <button type="button" class="selector-button selector-plus" onclick="incrementTotalRounds()">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 10H16M10 4V16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Categories Section -->
+            <section class="config-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="8" y="8" width="24" height="24" rx="4" stroke="var(--white)" stroke-width="2"/>
+                            <path d="M8 16H32M8 24H32" stroke="var(--white)" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="section-title">Categorias de Palavras</h2>
+                        <p class="section-description">Selecione as categorias disponíveis</p>
+                    </div>
+                </div>
+                
+                <div class="categories-grid">
+                    <label class="category-checkbox">
+                        <input type="checkbox" name="categories" value="acoes" checked>
+                        <span class="category-icon">🏃</span>
+                        <span class="category-name">Ações</span>
+                    </label>
+                    
+                    <label class="category-checkbox">
+                        <input type="checkbox" name="categories" value="animais" checked>
+                        <span class="category-icon">🦁</span>
+                        <span class="category-name">Animais</span>
+                    </label>
+                    
+                    <label class="category-checkbox">
+                        <input type="checkbox" name="categories" value="famosos" checked>
+                        <span class="category-icon">⭐</span>
+                        <span class="category-name">Famosos</span>
+                    </label>
+                    
+                    <label class="category-checkbox">
+                        <input type="checkbox" name="categories" value="objetos" checked>
+                        <span class="category-icon">📦</span>
+                        <span class="category-name">Objetos</span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Teams Summary -->
+            <section class="config-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="15" cy="15" r="5" fill="var(--primary-color)"/>
+                            <circle cx="25" cy="15" r="5" fill="var(--secondary-color)"/>
+                            <circle cx="20" cy="25" r="5" fill="var(--accent-color)"/>
+                            <path d="M15 20L20 25L25 20" stroke="var(--text-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="section-title">Resumo dos Times</h2>
+                        <p class="section-description">Verifique os nomes dos times e jogadores</p>
+                    </div>
+                </div>
+                
+                <div class="teams-summary" id="teamsSummary">
+                    <!-- Teams will be loaded dynamically -->
+                </div>
+            </section>
+
+            <!-- Quick Actions -->
+            <section class="quick-actions">
+                <h3>Ações Rápidas</h3>
+                <div class="actions-grid">
+                    <button type="button" class="action-button" onclick="resetToDefaults()">
+                        <span class="action-icon">🔄</span>
+                        <span class="action-text">Redefinir Padrões</span>
+                    </button>
+                    <button type="button" class="action-button" onclick="randomizeSettings()">
+                        <span class="action-icon">🎲</span>
+                        <span class="action-text">Configurações Aleatórias</span>
+                    </button>
+                    <button type="button" class="action-button" onclick="savePreset()">
+                        <span class="action-icon">💾</span>
+                        <span class="action-text">Salvar Predefinição</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Next Steps -->
+            <section class="instructions-section">
+                <div class="instruction-card">
+                    <div class="instruction-icon">
+                        <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="20" cy="20" r="18" stroke="var(--info-color)" stroke-width="2"/>
+                            <path d="M20 12V20L25 25" stroke="var(--info-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="instruction-content">
+                        <h3>Próximos Passos</h3>
+                        <ul>
+                            <li>Após configurar as regras, o jogo começará com o Time 1</li>
+                            <li>Um jogador de cada vez fará as mímicas dentro do tempo definido</li>
+                            <li>Os outros integrantes do time tentarão adivinhar</li>
+                            <li>Cada acerto vale pontos conforme configurado</li>
+                            <li>O primeiro time a atingir a pontuação de vitória ganha!</li>
+                            <li>As configurações podem ser ajustadas a qualquer momento</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Action Buttons -->
+            <section class="action-section">
+                <button type="button" class="secondary-button" onclick="goBack()">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 10L16 10M16 10L9 3M16 10L9 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Voltar
+                </button>
+                
+                <button type="submit" class="primary-button">
+                    Iniciar Jogo
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 10L15 10M15 10L10 5M15 10L10 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </section>
+        </form>
+    </main>
+
+    <!-- Hidden inputs for form submission -->
+    <input type="hidden" id="roundTimeInput" name="roundTime" value="60">
+    <input type="hidden" id="pointsInput" name="points" value="1">
+    <input type="hidden" id="totalRoundsInput" name="totalRounds" value="3">
+    <input type="hidden" id="pointsTypeInput" name="pointsType" value="fixed">
+    <input type="hidden" id="minRandomPointsInput" name="minRandomPoints" value="1">
+    <input type="hidden" id="maxRandomPointsInput" name="maxRandomPoints" value="5">
+    <input type="hidden" id="skipsPerRoundInput" name="skipsPerRound" value="2">
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>

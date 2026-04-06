@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nomear Times - CAMIMICA Jogo de Mímica">
+    <meta name="keywords" content="jogo, mimica, times, nomes, jogadores">
+    <meta name="author" content="CAMIMICA">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Nomear Times - CAMIMICA">
+    <meta property="og:description" content="Dê nomes aos times e jogadores">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <title>Nomear Times - CAMIMICA</title>
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="background-animation">
+        <div class="floating-element floating-element--1"></div>
+        <div class="floating-element floating-element--2"></div>
+        <div class="floating-element floating-element--3"></div>
+        <div class="floating-element floating-element--4"></div>
+        <div class="floating-element floating-element--5"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="config-header">
+        <button class="back-button" onclick="goBack()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 12L5 12M5 12L12 5M5 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Voltar
+        </button>
+        
+        <div class="header-content">
+            <div class="logo-small">
+                <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="url(#gradient1)"/>
+                    <path d="M30 40C30 40 40 30 50 40C60 30 70 40 70 40" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="35" cy="35" r="3" fill="white"/>
+                    <circle cx="65" cy="35" r="3" fill="white"/>
+                    <path d="M35 60C35 60 42 65 50 60C58 65 65 60 65 60" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs>
+                        <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#FF6B6B"/>
+                            <stop offset="100%" style="stop-color:#4ECDC4"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <h1 class="page-title">Nomear Times e Jogadores</h1>
+            <p class="page-subtitle">Personalize os nomes dos times e dos jogadores</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="names-main">
+        <form id="namesForm" class="names-form">
+            <!-- Teams Container -->
+            <div class="teams-container" id="teamsContainer">
+                <!-- Teams will be dynamically generated here -->
+            </div>
+
+            <!-- Quick Actions -->
+            <!-- <section class="quick-actions">
+                <h3>Ações Rápidas</h3>
+                <div class="actions-grid">
+                    <button type="button" class="action-button" onclick="generateRandomNames()">
+                        <span class="action-icon">🎲</span>
+                        <span class="action-text">Nomes Aleatórios</span>
+                    </button>
+                    <button type="button" class="action-button" onclick="useTeamThemes()">
+                        <span class="action-icon">🎨</span>
+                        <span class="action-text">Temas de Times</span>
+                    </button>
+                    <button type="button" class="action-button" onclick="clearAllNames()">
+                        <span class="action-icon">🗑️</span>
+                        <span class="action-text">Limpar Tudo</span>
+                    </button>
+                </div>
+            </section> -->
+
+            <!-- Game Instructions -->
+            <!-- <section class="instructions-section">
+                <div class="instruction-card">
+                    <div class="instruction-icon">
+                        <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="20" cy="20" r="18" stroke="var(--primary-color)" stroke-width="2"/>
+                            <path d="M20 12V20L24 24" stroke="var(--primary-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="instruction-content">
+                        <h3>Próximos Passos</h3>
+                        <ul>
+                            <li>Após nomear os times, o jogo começará com o Time 1</li>
+                            <li>Um jogador de cada vez fará as mímicas</li>
+                            <li>Os outros integrantes do time tentarão adivinhar</li>
+                            <li>Cada acerto vale pontos para o time</li>
+                            <li>O time com mais pontos vence!</li>
+                        </ul>
+                    </div>
+                </div>
+            </section> -->
+
+            <!-- Action Buttons -->
+            <section class="action-section">
+                <button type="button" class="secondary-button" onclick="goBack()">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 10L16 10M16 10L9 3M16 10L9 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Voltar
+                </button>
+                
+                <button type="submit" class="primary-button">
+                    Configurações do Jogo
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 10L15 10M15 10L10 5M15 10L10 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </section>
+        </form>
+    </main>
+
+    <!-- Theme Selection Modal -->
+    <div class="modal" id="themeModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Escolha um Tema</h3>
+                <button class="modal-close" onclick="closeThemeModal()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="theme-options">
+                    <!-- Opções de tema serão carregadas dinamicamente via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>

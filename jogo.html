@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Jogo de Mímica - CAMIMICA">
+    <meta name="keywords" content="jogo, mimica, diversão, amigos">
+    <meta name="author" content="CAMIMICA">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Jogo - CAMIMICA">
+    <meta property="og:description" content="Jogo de mímica com amigos e família">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <title>Jogo - CAMIMICA</title>
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="background-animation">
+        <div class="floating-element floating-element--1"></div>
+        <div class="floating-element floating-element--2"></div>
+        <div class="floating-element floating-element--3"></div>
+        <div class="floating-element floating-element--4"></div>
+        <div class="floating-element floating-element--5"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="game-header">
+        <div class="header-content">
+            <div class="logo-small">
+                <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="url(#gradient1)"/>
+                    <path d="M30 40C30 40 40 30 50 40C60 30 70 40 70 40" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="35" cy="35" r="3" fill="white"/>
+                    <circle cx="65" cy="35" r="3" fill="white"/>
+                    <path d="M35 60C35 60 42 65 50 60C58 65 65 60 65 60" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs>
+                        <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#FF6B6B"/>
+                            <stop offset="100%" style="stop-color:#4ECDC4"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <h1 class="page-title">CAMIMICA</h1>
+            <button class="back-button" onclick="goBack()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 12L5 12M5 12L12 5M5 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Sair
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="game-main" id="gameMain">
+        <!-- Loading Screen -->
+        <div class="loading-screen" id="loadingScreen">
+            <div class="loading-content">
+                <div class="loading-spinner"></div>
+                <h2 class="loading-title">Preparando o Jogo...</h2>
+                <p class="loading-text">Carregando configurações e palavras</p>
+            </div>
+        </div>
+
+        <!-- Game Container -->
+        <div class="game-container hidden" id="gameContainer">
+            <!-- Current Turn -->
+            <section class="current-turn">
+                <div class="turn-info">
+                    <h2 class="turn-title">Vez de:</h2>
+                    <div class="current-player" id="currentPlayer">
+                        <div class="player-avatar">
+                            <!-- <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="20" cy="20" r="18" stroke="var(--secondary-color)" stroke-width="2"/>
+                                <path d="M20 12L20 20M15 16L25 16" stroke="var(--secondary-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg> -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#4f5250" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5.52 19c.64-2.2 1.84-3 3.22-3h6.52c1.38 0 2.58.8 3.22 3"/><circle cx="12" cy="10" r="3"/><circle cx="12" cy="12" r="10"/></svg>                        </div>
+                        <div class="player-details">
+                            <h3 class="player-name" id="playerName">-</h3>
+                            <p class="player-team" id="playerTeam">-</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Game Area -->
+            <section class="game-area">
+                <!-- Word Display -->
+                <div class="word-container">
+                    <div class="word-display" id="wordDisplay">
+                        <div class="word-content">
+                            <h2 class="word-text" id="wordText">Clique em "Mostrar Palavra" para ver</h2>
+                            <div class="word-category" id="wordCategory">-</div>
+                        </div>
+                    </div>
+                    <div class="word-actions">
+                        <button class="action-button show-word-button" id="showWordButton" onclick="showWord()">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10 12C11.1046 12 12 11.1046 12 10C12 8.89543 11.1046 8 10 8C8.89543 8 8 8.89543 8 10C8 11.1046 8.89543 12 10 12Z" fill="currentColor"/>
+                                <path d="M2 10C2 10 5 5 10 5C15 5 18 10 18 10C18 10 15 15 10 15C5 15 2 10 2 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Mostrar Palavra
+                        </button>
+                        <button class="skip-word-button action-button hidden" id="skipWordButton" onclick="skipWord()" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19"></line></svg>
+                            <div id="skip-label">
+                                Pular (<span id="skipCount">2</span>)
+                            </div> 
+                        </button>
+                        <button class="action-button start-turn-button hidden" id="startTurnButton" onclick="startTurn()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                            Começar Vez
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Timer -->
+                <div class="timer-container">
+                    <div class="timer-display" id="timerDisplay">
+                        <span class="timer-value" id="timerValue">60</span>
+                        <span class="timer-label">segundos</span>
+                    </div>
+                    <div class="timer-controls">
+                        <button class="timer-button timer-end hidden" id="endTurnButton" onclick="endTurn()">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="4" y="4" width="12" height="12" rx="2" fill="currentColor"/>
+                            </svg>
+                            Encerrar
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Score Board -->
+            <section class="score-board">
+                <h2 class="score-title">Placar</h2>
+                <div class="teams-score" id="teamsScore">
+                    <!-- Scores will be loaded dynamically -->
+                </div>
+            </section>
+
+            <!-- Game Status -->
+            <section class="game-status">
+                <div class="status-info">
+                    <h3 class="status-title">Status do Jogo</h3>
+                    <div class="status-details">
+                        <div class="status-item">
+                            <span class="status-label">Rodada:</span>
+                            <span class="status-value" id="roundNumber">1</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">Rodadas Totais:</span>
+                            <span class="status-value" id="totalRoundsDisplay">3</span>
+                        </div>
+                        <!-- <div class="status-item">
+                            <span class="status-label">Categoria Atual:</span>
+                            <span class="status-value" id="currentCategory">-</span>
+                        </div> -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Round Result Modal -->
+        <div class="modal hidden" id="roundResultModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Mimica Encerrada!</h3>
+                    <button class="modal-close" onclick="closeRoundResult()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="round-info">
+                        <p class="round-message">Fim da Mimica! A equipe acertou ou errou?</p>
+                        <div class="result-buttons">
+                            <button class="result-button hit-result-button" onclick="handleResult('hit')">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Acertou
+                            </button>
+                            <button class="result-button miss-result-button" onclick="handleResult('miss')">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M10 14L14 10M14 14L10 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Errou
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Over Modal -->
+        <div class="modal hidden" id="gameOverModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">🏆 Fim de Jogo!</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="winner-content" id="winnerContent">
+                        <!-- Winner will be loaded dynamically -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="primary-button" onclick="newGame()">
+                        Novo Jogo
+                    </button>
+                    <button class="secondary-button" onclick="goToConfig()">
+                        Configurar Novo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="js/game.js"></script>
+</body>
+</html>
