@@ -37,7 +37,7 @@
 
     <!-- Header -->
     <header class="game-header">
-        <div class="header-content">
+        <div class="header-content header-content-game">
             <div class="logo-small">
                 <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="50" cy="50" r="45" fill="url(#gradient1)"/>
@@ -86,7 +86,7 @@
                                 <circle cx="20" cy="20" r="18" stroke="var(--secondary-color)" stroke-width="2"/>
                                 <path d="M20 12L20 20M15 16L25 16" stroke="var(--secondary-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg> -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#4f5250" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5.52 19c.64-2.2 1.84-3 3.22-3h6.52c1.38 0 2.58.8 3.22 3"/><circle cx="12" cy="10" r="3"/><circle cx="12" cy="12" r="10"/></svg>                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5.52 19c.64-2.2 1.84-3 3.22-3h6.52c1.38 0 2.58.8 3.22 3"/><circle cx="12" cy="10" r="3"/><circle cx="12" cy="12" r="10"/></svg>                        </div>
                         <div class="player-details">
                             <h3 class="player-name" id="playerName">-</h3>
                             <p class="player-team" id="playerTeam">-</p>
@@ -219,10 +219,13 @@
                 </div>
                 <div class="modal-footer">
                     <button class="primary-button" onclick="newGame()">
+                        Jogar Novamente
+                    </button>
+                    <button class="tertiary-button" onclick="resetAll()">
                         Novo Jogo
                     </button>
-                    <button class="secondary-button" onclick="goToConfig()">
-                        Configurar Novo
+                    <button class="secondary-button" onclick="newGameConfig()">
+                        Nova Configuração
                     </button>
                 </div>
             </div>

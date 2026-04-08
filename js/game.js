@@ -725,8 +725,73 @@ function showGameOver() {
 }
 
 function newGame() {
-  // Limpa dados do jogo
+  // Reinicia o estado do jogo mantendo times e configurações
+  const gameState = JSON.parse(localStorage.getItem('camimica_gameState'));
+  
+  if (gameState) {
+    // Zera os scores para todos os times existentes
+    const resetScores = {};
+    if (gameState.teams) {
+      gameState.teams.forEach((team, index) => {
+        resetScores[index] = 0;
+      });
+    }
+    
+    // Reseta apenas os dados do jogo, mantendo times e configurações
+    gameState.gameStarted = false;
+    gameState.currentTeamIndex = 0;
+    gameState.currentPlayerIndex = 0;
+    gameState.roundNumber = 1;
+    gameState.scores = resetScores; // Zera todos os placares corretamente
+    gameState.playersInRound = [];
+    gameState.totalPlayersPlayed = 0;
+    
+    // Salva o estado atualizado
+    localStorage.setItem('camimica_gameState', JSON.stringify(gameState));
+    
+    // Recarrega a página do jogo
+    window.location.reload();
+  } else {
+    // Se não houver estado, volta para o início
+    localStorage.removeItem('camimica_gameStarted');
+    window.location.href = 'index.html';
+  }
+}
+
+function newGameConfig() {
+  // Mantém times e jogadores, mas volta para configurações do jogo
+  const gameState = JSON.parse(localStorage.getItem('camimica_gameState'));
+  
+  if (gameState) {
+    // Reseta apenas os dados do jogo, mantendo times
+    gameState.gameStarted = false;
+    gameState.currentTeamIndex = 0;
+    gameState.currentPlayerIndex = 0;
+    gameState.roundNumber = 1;
+    gameState.scores = {}; // Zera placares
+    gameState.playersInRound = [];
+    gameState.totalPlayersPlayed = 0;
+    
+    // Salva o estado atualizado
+    localStorage.setItem('camimica_gameState', JSON.stringify(gameState));
+    
+    // Redireciona para configurações do jogo
+    window.location.href = 'configuracoes-jogo.html';
+  } else {
+    // Se não houver estado, volta para o início
+    localStorage.removeItem('camimica_gameStarted');
+    window.location.href = 'index.html';
+  }
+}
+
+function resetAll() {
+  // Reseta completamente todas as configurações
+  localStorage.removeItem('camimica_gameState');
+  localStorage.removeItem('camimica_gameConfig');
+  localStorage.removeItem('camimica_teams');
   localStorage.removeItem('camimica_gameStarted');
+  
+  // Volta para a página inicial
   window.location.href = 'index.html';
 }
 

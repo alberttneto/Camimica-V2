@@ -362,7 +362,7 @@ function generateTeamCard(index, color, defaultName) {
           placeholder="Nome do Time" 
           data-team="${index}"
           maxlength="15"
-          value="${defaultName}"
+          value=""
         >
       </div>
       <div class="players-grid">
