@@ -999,15 +999,15 @@ ul, ol {
 .game-container {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  grid-template-rows: auto auto;
-  gap: var(--spacing-xl);
-  align-items: start;
+  grid-template-rows: 1fr 1fr;
+  gap: 20px;
+  align-items: stretch;
 }
 
 /* Posicionamento específico para desktop */
 .game-container .current-turn {
   grid-column: 1;
-  grid-row: 1 / 3; /* Ocupa duas linhas */
+  grid-row: 1; /* Ocupa duas linhas */
 }
 
 .game-container .game-status {
@@ -1024,7 +1024,7 @@ ul, ol {
 .game-container .score-board {
   grid-column: 3;
   grid-row: 1 / 3; /* Ocupa duas linhas */
-  min-height: 550px;
+  min-height: 600px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1358,7 +1358,7 @@ ul, ol {
 
 .word-display {
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  padding: var(--spacing-2xl);
+  padding: 40px;
   border-radius: var(--radius-xl);
   text-align: center;
   color: var(--text-white);
@@ -2445,8 +2445,8 @@ ul, ol {
 /* Mobile Phones */
 @media (max-width: 480px) {
   .main-container {
-    /* padding: var(--spacing-md); */
-    padding: 100px var(--spacing-md);
+    padding: var(--spacing-md);
+    /* padding: 100px var(--spacing-md); */
   }
   
   .game-title {
@@ -2512,6 +2512,16 @@ ul, ol {
 
   .result-button{
     width: 50px;
+    font-size: 12px;
+    padding: 0px;
+  }
+
+  .miss-result-button{
+    background-color: rgb(250, 66, 66);
+  }
+
+  .result-buttons path{
+    stroke: white;
   }
 }
 
