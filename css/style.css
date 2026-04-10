@@ -1397,6 +1397,45 @@ ul, ol {
   border-radius: var(--radius-full);
 }
 
+.word-points {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-family: var(--font-family-secondary);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-white);
+  background: rgba(255, 255, 255, 0.15);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  margin-top: var(--spacing-md);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.word-points.hidden {
+  display: none;
+}
+
+.points-label {
+  opacity: 0.8;
+  font-weight: var(--font-weight-normal);
+}
+
+.points-value {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--accent-color);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.points-text {
+  opacity: 0.9;
+  font-weight: var(--font-weight-normal);
+}
+
 .word-actions {
   display: flex;
   gap: var(--spacing-lg);

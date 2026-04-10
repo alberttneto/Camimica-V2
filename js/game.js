@@ -57,6 +57,7 @@ async function initializeGame() {
     }
     
     // Inicializa interface
+    updateTimer();
     updateScoreBoard();
     updateCurrentPlayer();
     updateGameStatus();
@@ -71,6 +72,11 @@ async function initializeGame() {
     console.error('Erro ao inicializar jogo:', error);
     showNotification('Erro ao carregar o jogo. Tente novamente.', 'error');
   }
+}
+
+function updateTimer (){
+  const timerValue = $('#timerValue');
+  timerValue.textContent = Game.gameConfig.roundTime;
 }
 
 function loadGameData() {
@@ -159,6 +165,7 @@ function showWord() {
   // Mostra palavra
   Game.wordShown = true;
   updateWordDisplay();
+  updatePointsDisplay();
   
   // Mostra botões de pular e começar vez
   $('#showWordButton').classList.add('hidden');
@@ -188,6 +195,7 @@ function skipWord() {
   // Seleciona nova palavra
   selectRandomWord();
   updateWordDisplay();
+  updatePointsDisplay();
   
   console.log('Nova palavra selecionada:', Game.currentWord);
   console.log('Nova categoria:', Game.currentCategory);
@@ -251,17 +259,14 @@ function endTurn() {
   // Mostra modal de resultado
   showRoundResult();
   updateButtons();
+  updateTimer();
 }
 
 function handleResult(result) {
+
   if (result === 'hit') {
     // Calcula pontos
     let points = Game.gameConfig.pointsPerHit;
-    if (Game.gameConfig.pointsType === 'random') {
-      const min = Game.gameConfig.minRandomPoints;
-      const max = Game.gameConfig.maxRandomPoints;
-      points = Math.floor(Math.random() * (max - min + 1)) + min;
-    }
     
     // Adiciona pontos ao time atual
     Game.scores[Game.currentTeamIndex] += points;
@@ -379,45 +384,31 @@ function stopRound() {
 //   updateButtons();
 // }
 
-function skipWord() {
-  console.log(Game.skipsRemaining);
-  console.log(!Game.isPlaying);
-  console.log(Game.isPaused);
-  console.log(Game.skipsRemaining <= 0 || !Game.isPlaying || Game.isPaused);
-  // if (Game.skipsRemaining <= 0 || !Game.isPlaying || Game.isPaused) return;
-  if (Game.skipsRemaining <= 0 || Game.isPaused) return;
-  Game.skipsRemaining--;
-  updateSkipButton();
-  
-  // Seleciona nova palavra
-  selectRandomWord();
-  updateWordDisplay();
-  
-  showNotification(`Palavra pulada! Restam ${Game.skipsRemaining} pulo(s)`, 'warning');
-}
 
-function hitWord() {
-  if (!Game.isPlaying || Game.isPaused) return;
+// function hitWord() {
+//   if (!Game.isPlaying || Game.isPaused) return;
   
-  // Calcula pontos
-  let points = Game.gameConfig.pointsPerHit;
-  if (Game.gameConfig.pointsType === 'random') {
-    const min = Game.gameConfig.minRandomPoints;
-    const max = Game.gameConfig.maxRandomPoints;
-    points = Math.floor(Math.random() * (max - min + 1)) + min;
-  }
+//   console.log("Entrou hitword");
+//   // Calcula pontos
+//   let points = Game.gameConfig.pointsPerHit;
+//   if (Game.gameConfig.pointsType === 'random') {
+//     const min = Game.gameConfig.minRandomPoints;
+//     const max = Game.gameConfig.maxRandomPoints;
+//     points = Math.floor(Math.random() * (max - min + 1)) + min;
+//   }
   
-  // Adiciona pontos ao time atual
-  Game.scores[Game.currentTeamIndex] += points;
-  Game.hitsInRound++;
+//   // Adiciona pontos ao time atual
+//   Game.scores[Game.currentTeamIndex] += points;
+//   Game.hitsInRound++;
   
-  // Seleciona nova palavra
-  selectRandomWord();
-  updateWordDisplay();
-  updateScoreBoard();
+//   // Seleciona nova palavra
+//   selectRandomWord();
+//   updateWordDisplay();
+//   updatePointsDisplay();
+//   updateScoreBoard();
   
-  showNotification(`+${points} ponto${points > 1 ? 's' : ''}!`, 'success');
-}
+//   showNotification(`+${points} ponto${points > 1 ? 's' : ''}!`, 'success');
+// }
 
 // ===== ATUALIZAÇÃO DE INTERFACE =====
 function updateScoreBoard() {
@@ -427,11 +418,11 @@ function updateScoreBoard() {
   let scoreHTML = '';
   Game.teams.forEach((team, index) => {
     const score = Game.scores[index] || 0;
-    const isCurrentTeam = index === Game.currentTeamIndex;
+    // const isCurrentTeam = index === Game.currentTeamIndex;
     const teamColor = ['#FF6B6B', '#4ECDC4', '#FFD93D', '#6BCF7F'][index];
     
     scoreHTML += `
-      <div class="team-score-card ${isCurrentTeam ? 'current' : ''}">
+      <div class="team-score-card">
         <div class="team-score-header">
           <div class="team-score-color" style="background-color: ${teamColor}">
             ${index + 1}
@@ -494,6 +485,28 @@ function updateWordDisplay() {
     wordText.textContent = 'Clique em "Mostrar Palavra" para ver';
     wordCategory.textContent = '-';
     console.log('Palavra oculta');
+  }
+}
+
+function updatePointsDisplay() {
+  const wordPoints = $('#wordPoints');
+  const pointsValue = $('#pointsValue');
+  
+  if (!wordPoints || !pointsValue) return;
+  
+  if (Game.wordShown && Game.currentWord) {
+    const points = getCurrentWordPoints();
+    pointsValue.textContent = points;
+    
+    // Update plural/singular
+    const pointsText = wordPoints.querySelector('.points-text');
+    if (pointsText) {
+      pointsText.textContent = points > 1 ? 'pontos' : 'ponto';
+    }
+    
+    wordPoints.classList.remove('hidden');
+  } else {
+    wordPoints.classList.add('hidden');
   }
 }
 
@@ -614,6 +627,7 @@ function nextRound() {
   updateCurrentPlayer();
   updateGameStatus();
   updateWordDisplay();
+  updatePointsDisplay();
   updateButtons();
   
   // Reseta botões para estado inicial
@@ -806,11 +820,16 @@ function getCategoryDisplayName(category) {
   return names[category] || category;
 }
 
-function getAveragePoints() {
+
+function getCurrentWordPoints() {
+  let points = Game.gameConfig.pointsPerHit;
   if (Game.gameConfig.pointsType === 'random') {
-    return Math.floor((Game.gameConfig.minRandomPoints + Game.gameConfig.maxRandomPoints) / 2);
+    const min = Game.gameConfig.minRandomPoints;
+    const max = Game.gameConfig.maxRandomPoints;
+    points = Math.floor(Math.random() * (max - min + 1)) + min;
+    Game.gameConfig.pointsPerHit = points;
   }
-  return Game.gameConfig.pointsPerHit;
+  return points;
 }
 
 function showNotification(message, type = 'info') {
